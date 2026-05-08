@@ -86,9 +86,10 @@ public interface PlatformLogger {
     }
 
     /**
-     * @param message
+     * A method which prefixes log messages with the class name of the log source.
+     * @param message The message to log.
      * @param source For nested classes, the outer class should be first, and the innermost class last. May be left empty for obvious sources (init messages).
-     * @return
+     * @return The constructed string.
      */
     static String constructMessage(String message, Class<?>... source) {
         if (source == null || source.length == 0) return message;
