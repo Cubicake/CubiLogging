@@ -107,6 +107,7 @@ public interface PlatformLogger {
         return builder.toString();
     }
 
+
     static String constructFileLogMessage(String message, Level logLevel, int importance,  Class<?>... source) {
         StringBuilder builder = new StringBuilder();
         builder.append("[").append(logLevel.name()).append("] ");
