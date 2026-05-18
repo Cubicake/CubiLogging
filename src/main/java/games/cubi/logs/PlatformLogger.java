@@ -86,10 +86,9 @@ public interface PlatformLogger {
     }
 
     /**
-     * A method which prefixes log messages with the class name of the log source.
-     * @param message The message to log.
+     * @param message
      * @param source For nested classes, the outer class should be first, and the innermost class last. May be left empty for obvious sources (init messages).
-     * @return The constructed string.
+     * @return
      */
     static String constructMessage(String message, Class<?>... source) {
         if (source == null || source.length == 0) return message;
@@ -105,6 +104,24 @@ public interface PlatformLogger {
             }
         }
         builder.append("] ").append(message);
+        return builder.toString();
+    }
+
+    static String constructFileLogMessage(String message, Level logLevel, int importance,  Class<?>... source) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("[").append(logLevel.name()).append("] ");
+        builder.append("[").append(importance).append("] ");
+        if (source != null && source.length > 0) {
+            builder.append("[");
+            for (int i = 0; i < source.length; i++) {
+                builder.append(source[i].getSimpleName());
+                if (i != source.length - 1) {
+                    builder.append(".");
+                }
+            }
+            builder.append("] ");
+        }
+        builder.append(message);
         return builder.toString();
     }
 }
