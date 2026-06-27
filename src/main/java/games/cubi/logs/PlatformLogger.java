@@ -60,6 +60,13 @@ public interface PlatformLogger {
     void warning(String message, @Range(from = 1, to = 10) int level, Class<?>... source);
     void error(String message, @Range(from = 1, to = 10) int level, Class<?>... source);
 
+    default <T> T requireNonNull(@Nullable T object, String message, @Range(from = 1, to = 10) int level, Class<?>... source) {
+        if (object == null) {
+            errorAndReturn(new IllegalArgumentException(message), level, source);
+        }
+        return object;
+    }
+
     /**
      * Logs an error message including stack trace and serves as an early return. Nothing called after this method will be executed.
      * @param throwable The throwable to log, used for the included stack trace. The message of the throwable will be used as the error message

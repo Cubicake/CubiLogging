@@ -1,6 +1,7 @@
 package games.cubi.logs;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;
 
 public class Logger {
@@ -68,6 +69,13 @@ public class Logger {
      * **/
     public static void errorAndReturn(Throwable throwable, @Range(from = 1, to = 10) int level, Class<?>... source) throws RuntimeException {
         platformLogger.errorAndReturn(throwable, level, source);
+    }
+
+    /**
+     * Triggers {@link #errorAndReturn(Throwable, int, Class[])} if the provided object is null. Similar to {@link java.util.Objects#requireNonNull(Object, String)} but passing through the logger instead of throwing directly.
+     */
+    public static <T> T requireNonNull(@Nullable T obj, @NotNull String message, @Range(from = 1, to = 10) int level, Class<?>... source) {
+        return platformLogger.requireNonNull(obj, message, level, source);
     }
 
     /**
